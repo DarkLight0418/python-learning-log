@@ -1,0 +1,18 @@
+pyinstaller -F -w --icon=핫.ico -n=Todo_list --hidden-import 'todo_func.Todo_list' --add-data "todo_func.py:." TodoList.py
+
+pyinstaller Todo_list.spec
+
+def import_todo(self):
+        """
+        파일에서 할 일 목록을 불러와 메모리 변수에 저장합니다.
+        """
+        if os.path.exists(self.file_path):  # exists 메소드 사용
+            with open(self.file_path, 'r') as file:
+                Todo_list.todo_list = [task.strip() for task in file.readlines()]
+            print("할 일 목록이 파일에서 불러와졌습니다:", Todo_list.todo_list)
+        else:
+            os.mkdir('./txtTodo/todo_list.txt')
+            Todo_list.todo_list = open('./txtTodo/todo_list.txt', "a+")
+            with open(self.file_path, 'r') as file:
+                Todo_list.todo_list = [task.strip() for task in file.readlines()]
+            print("할 일 목록이 파일에서 불러와졌습니다:", Todo_list.todo_list)
